@@ -11,15 +11,15 @@ class QueryRowList extends React.Component {
 
   removeRow = (rowIdx) => {
     let rows = [...this.state.queryRows];
-    rows.splice(rowIdx, 1);
-    let newRows = rows.map((row, i) => <QueryRow key={i} removeRow={this.removeRow} rowIdx={i} />);
+    let newRows = rows.filter((row) => row.key != rowIdx);
+    console.log(' newRows ->', newRows);
     this.setState({ queryRows: newRows });
   }
 
   render() {
     return (
       <div className="query-row-list-container">
-        {this.state.queryRows.map(row => row)}
+        {this.state.queryRows}
         <button className="add-row-btn" onClick={this.addRow}>AND</button>
       </div>
     );

@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1em;
 }
 
 * {
@@ -123,7 +124,7 @@ select {
   margin-right: 5px;
   height: 30px;
   padding-left: 10px;
-  min-width: 100px;
+  min-width: 205px;
   border-radius: 3px;
   font-size: 14px;
 }
@@ -146,6 +147,7 @@ input {
   height: 30px;
   border: 1px solid #b6b6b6;
   border-radius: 3px;
+  font-size: inherit;
 }
 
 .custom-select {
