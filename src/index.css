@@ -129,5 +129,39 @@ footer {
 }
 
 select {
+  appearance: none;
   margin-right: 5px;
+  height: 30px;
+  padding-left: 10px;
+  min-width: 100px;
+}
+
+.is-and-div {
+  background-color: #c5d3dd;
+  color: black;
+  height: 30px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+input {
+  margin-right: 5px;
+  height: 30px;
+}
+
+.custom-select {
+  position: relative;
+}
+
+img {
+  position: absolute;
+  height: 0.4em;
+  right: 15px;
+  top: 50%;
+  margin-top: -2px;
+  pointer-events: none;
 }
