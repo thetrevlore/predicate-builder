@@ -18,9 +18,11 @@ code {
 
 .App {
   background-color: rgb(244, 244, 244);
-  color: rgb(100, 100, 100);
+  color: rgb(143, 143, 143);
   width: 100vw;
   height: 100vh;
+  padding: 10px;
+  padding-top: 0;
   display: grid;
   grid-template-rows: 50px 1fr 50px;
   grid-template-columns: 1fr;
@@ -36,20 +38,52 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1px solid red;
+  /* padding: 10px; */
+  /* border: 1px solid red; */
 }
 
 main {
-  /* grid-row: 2 / 3;
-  grid-column: 1 / 2; */
   grid-area: "main";
-  border: 1px solid green;
+  border-top: 1px solid rgb(143, 143, 143);
+  /* margin-left: 10px; */
+  /* margin-right: 10px; */
+  /* width: 98%; */
+  /* margin-left: 1%; */
+  /* border: 1px solid green; */
 }
 
 footer {
-  /* grid-row: 3 / 4;
-  grid-column: 1 / 2; */
   grid-area: "footer";
-  border: 1px solid blue;
-  /* height: 100px; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  /* padding: 10px; */
+  /* border: 1px solid blue; */
+}
+
+.search-btn {
+  background-color: #3087f8;
+  color: #fff;
+  height: 30px;
+  width: 200px;
+}
+
+
+.query-row-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add-row-btn {
+  background-color: #3087f8;
+  color: #fff;
+  height: 30px;
+  width: 200px;
+}
+
+
+
+.query-row-container {
+  
 }
