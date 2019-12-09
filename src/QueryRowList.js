@@ -12,7 +12,6 @@ class QueryRowList extends React.Component {
   removeRow = (rowIdx) => {
     let rows = [...this.state.queryRows];
     let newRows = rows.filter((row) => row.key != rowIdx);
-    console.log(' newRows ->', newRows);
     this.setState({ queryRows: newRows });
   }
 
