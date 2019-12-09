@@ -65,18 +65,11 @@ header {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  /* padding: 10px; */
-  /* border: 1px solid red; */
 }
 
 main {
   grid-area: "main";
   border-top: 1px solid rgb(143, 143, 143);
-  /* margin-left: 10px; */
-  /* margin-right: 10px; */
-  /* width: 98%; */
-  /* margin-left: 1%; */
-  /* border: 1px solid green; */
 }
 
 footer {
@@ -84,8 +77,6 @@ footer {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  /* padding: 10px; */
-  /* border: 1px solid blue; */
 }
 
 .search-btn {
@@ -112,7 +103,7 @@ footer {
 
 
 .query-row-container {
-  border: 1px solid red;
+  height: 50px;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -125,7 +116,6 @@ footer {
   height: 30px;
   width: 30px;
   margin-right: 5px;
-  /* background-color: white; */
 }
 
 select {
@@ -134,6 +124,8 @@ select {
   height: 30px;
   padding-left: 10px;
   min-width: 100px;
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .is-and-div {
@@ -144,13 +136,16 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 5px;
+  border-radius: 3px;
 }
 
 input {
   margin-right: 5px;
   height: 30px;
+  border: 1px solid #b6b6b6;
+  border-radius: 3px;
 }
 
 .custom-select {
