@@ -116,6 +116,7 @@ footer {
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   padding: 5px;
 }
 
@@ -123,5 +124,10 @@ footer {
   background: white;
   height: 30px;
   width: 30px;
+  margin-right: 5px;
   /* background-color: white; */
+}
+
+select {
+  margin-right: 5px;
 }
