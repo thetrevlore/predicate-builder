@@ -11,13 +11,40 @@ body {
   box-sizing: border-box;
 }
 
+button {
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  background: white;
+  color: black;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+}
+
+button:hover,
+button:focus {
+  background: #e4e4e4;
+}
+
+button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .App {
-  background-color: rgb(244, 244, 244);
+  background-color: rgb(233, 233, 233);
   color: rgb(143, 143, 143);
   width: 100vw;
   height: 100vh;
@@ -85,5 +112,16 @@ footer {
 
 
 .query-row-container {
-  
+  border: 1px solid red;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 5px;
+}
+
+.remove-btn {
+  background: white;
+  height: 30px;
+  width: 30px;
+  /* background-color: white; */
 }
