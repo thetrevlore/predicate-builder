@@ -3,16 +3,22 @@ import './App.css';
 import QueryRow from './QueryRow';
 
 class QueryRowList extends React.Component {
-  state = { queryRows: [<QueryRow key={0} removeRow={this.removeRow} rowIdx={0} />] }
-
-  addRow = () => {
-    this.setState({ queryRows: [...this.state.queryRows, <QueryRow key={this.state.queryRows.length} removeRow={this.removeRow} rowIdx={this.state.queryRows.length} />] })
+  constructor() {
+    super();
+    const uniqId = new Date().getTime();
+    this.state = { queryRows: [<QueryRow key={uniqId} removeRow={this.removeRow} id={uniqId} />] }
   }
 
-  removeRow = (rowIdx) => {
-    let rows = [...this.state.queryRows];
-    let newRows = rows.filter((row) => row.key != rowIdx);
-    this.setState({ queryRows: newRows });
+  addRow = () => {
+    const uniqId = new Date().getTime();
+    this.setState({ queryRows: [...this.state.queryRows, <QueryRow key={uniqId} removeRow={this.removeRow} id={uniqId} />] })
+  }
+
+  removeRow = (id) => {
+    if (this.state.queryRows.length > 1) {
+      let newRows = this.state.queryRows.filter((row) => String(row.props.id) !== String(id));
+      this.setState({ queryRows: newRows });
+    }
   }
 
   render() {

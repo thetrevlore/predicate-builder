@@ -110,6 +110,7 @@ footer {
   justify-content: flex-start;
   align-items: center;
   padding: 5px;
+  padding-left: 1px;
 }
 
 .remove-btn {

@@ -17,20 +17,18 @@ class QueryRow extends React.Component {
       'domain',
       'page-path'
     ];
-    const intParams = [
-      'screen-width', 
-      'screen-height',
-      'num-visits',
-      'page-response-time'
-    ];
+    // const intParams = [
+    //   'screen-width', 
+    //   'screen-height',
+    //   'num-visits',
+    //   'page-response-time'
+    // ];
 
     return stringParams.includes(this.state.firstParam);
   }
 
   removeRow = () => {
-    if (this.props.rowIdx !== 0) {
-      this.props.removeRow(this.props.rowIdx);
-    }
+    this.props.removeRow(this.props.id);
   }
 
   selectFirstParam = (e) => {
