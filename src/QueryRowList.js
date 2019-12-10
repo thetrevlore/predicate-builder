@@ -3,28 +3,26 @@ import './App.css';
 import QueryRow from './QueryRow';
 
 class QueryRowList extends React.Component {
-  constructor() {
-    super();
-    const uniqId = new Date().getTime();
-    this.state = { queryRows: [<QueryRow key={uniqId} removeRow={this.removeRow} id={uniqId} />] }
+  state = { rowIds: [] }
+
+  componentDidMount() {
+    this.addRow();
   }
 
   addRow = () => {
     const uniqId = new Date().getTime();
-    this.setState({ queryRows: [...this.state.queryRows, <QueryRow key={uniqId} removeRow={this.removeRow} id={uniqId} />] })
+    this.setState({ rowIds: [...this.state.rowIds, uniqId]})
   }
 
-  removeRow = (id) => {
-    if (this.state.queryRows.length > 1) {
-      let newRows = this.state.queryRows.filter((row) => String(row.props.id) !== String(id));
-      this.setState({ queryRows: newRows });
-    }
+  removeRow = (rowIdToRemove) => {
+    let newRowIds = this.state.rowIds.filter(id => String(id) !== String(rowIdToRemove));
+    this.setState({ rowIds: newRowIds });
   }
 
   render() {
     return (
       <div className="query-row-list-container">
-        {this.state.queryRows}
+        {this.state.rowIds.map(rowId => <QueryRow key={rowId} removeRow={this.removeRow} id={rowId} disableRemoveRow={this.state.rowIds.length <= 1} />)}
         <button className="add-row-btn" onClick={this.addRow}>AND</button>
       </div>
     );

@@ -46,7 +46,7 @@ class QueryRow extends React.Component {
   render() {
     return (
       <div className="query-row-container">
-        <button className="remove-btn" onClick={this.removeRow}>-</button>
+        <button disabled={this.props.disableRemoveRow} className="remove-btn" onClick={this.removeRow}>-</button>
         <div className="custom-select">
           <select value={this.state.firstParam} onChange={this.selectFirstParam}>
             <option value="user-email">User Email</option>
