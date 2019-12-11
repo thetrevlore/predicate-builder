@@ -1,19 +1,14 @@
-import React from 'react';
-import './App.css';
-import QueryRowList from './QueryRowList';
+// import React from 'react';
+// import './App.css';
+// import QueryRowList from './QueryRowList';
 
-function App() {
-  return (
-    <div className="App">
-      <header>SEARCH FOR SESSIONS</header>
-      <main>
-        <QueryRowList />
-      </main>
-      <footer>
-        <button className="search-btn">Search</button>
-      </footer>
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       <header>SEARCH FOR SESSIONS</header>
+//       <QueryRowList />
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
