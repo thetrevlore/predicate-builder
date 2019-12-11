@@ -4,44 +4,47 @@ import QueryRow from './QueryRow';
 
 class QueryRowList extends React.Component {
   state = {
-    rowIds: [],
-    sqlQuery: []
+    allPredicates: []
   }
 
   componentDidMount() {
     this.addRow();
   }
 
-  addRow = (predicate) => {
+  addRow = () => {
     const uniqId = new Date().getTime();
     this.setState({
-      rowIds: [...this.state.rowIds, uniqId],
-      sqlQuery: [...this.state.sqlQuery, predicate]
+      allPredicates: [...this.state.allPredicates, { id: uniqId, predicate: '', operator: '', searchTerm: ''}]
     });
-    // this.setState({ })
   }
 
   removeRow = (rowIdToRemove) => {
-    let newRowIds = this.state.rowIds.filter(id => String(id) !== String(rowIdToRemove));
-    this.setState({ rowIds: newRowIds });
+    let newAllPredicates = this.state.allPredicates.filter(pred => String(pred.id) !== String(rowIdToRemove));
+    this.setState({ allPredicates: newAllPredicates });
   }
-
-  // addSqlRow = (predicate) => {
-  //   this.setState({ sqlQuery: [...this.state.sqlQuery, predicate]})
-  // }
 
   submitQuery = () => {
-    // this.props.submitQuery(this.state.sqlQuery)
-    console.log(this.state.sqlQuery.join(' AND '))
+    console.log('->',this.state.allPredicates)
+    let query = 'SELECT * FROM session\nWHERE\n';
+    for (let i = 0; i < this.state.allPredicates.length; i++) {
+      let row = this.state.allPredicates[i];
+      query += `\t${row.predicate} ${row.operator} ${row.searchTerm}`
+      query += i !== this.state.allPredicates.length - 1 ? '\nAND\n' : '';
+    }
+    console.log(query)
   }
 
-  editRow = ({ id, inputValue, predicate, operator }) => {
-    // SELECT * FROM session WHERE 
-    const rowIndex = this.state.rowIds.indexOf(id);
-    let queryPredicates = [...this.state.sqlQuery];
-    const newPredicate = { id, inputValue, predicate, operator };
-    queryPredicates.splice(rowIndex, 1, newPredicate)
-    this.setState({ sqlQuery: queryPredicates })
+  editRow = ({ id, searchTerm, predicate, operator }) => {
+    let allPreds = [...this.state.allPredicates];
+    for (let i = 0; i < allPreds.length; i++) {
+      let row = this.state.allPredicates[i];
+      if (row.id === id) {
+        row.searchTerm = searchTerm;
+        row.predicate = predicate;
+        row.operator = operator;
+      }
+    }
+    this.setState({ allPredicates: allPreds });
   }
 
   render() {
@@ -51,7 +54,7 @@ class QueryRowList extends React.Component {
 
         <main>
           <div className="query-row-list-container">
-            {this.state.rowIds.map(rowId => <QueryRow key={rowId} removeRow={this.removeRow} id={rowId} disableRemoveRow={this.state.rowIds.length <= 1} />)}
+            {this.state.allPredicates.map(pred => <QueryRow editRow={this.editRow} key={pred.id} removeRow={this.removeRow} id={pred.id} disableRemoveRow={this.state.allPredicates.length <= 1} />)}
             <button className="add-row-btn" onClick={this.addRow}>AND</button>
           </div>
         </main>

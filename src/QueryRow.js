@@ -20,16 +20,21 @@ const INT_PARAMS = [
 class QueryRow extends React.Component {
   state = {
     inputValue: '',
+    inputTwoValue: '',
     predicate: 'visits',
-    operator: 'equals',
+    operator: '=',
   }
 
   get isStringParam() {
     return STRING_PARAMS.includes(this.state.predicate);
   }
 
+  componentDidMount() {
+    this.generateSql();
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.inputValue !== this.state.inputValue || prevState.predicate !== this.state.predicate || prevState.operator !== this.state.operator) {
+    if (prevState.inputValue !== this.state.inputValue || prevState.inputTwoValue !== this.state.inputTwoValue || prevState.predicate !== this.state.predicate || prevState.operator !== this.state.operator) {
       this.generateSql();
     }
   }
@@ -49,9 +54,12 @@ class QueryRow extends React.Component {
   handleInputValueChange = (e) => {
     this.setState({ inputValue: e.target.value });
   }
+  handleInputTwoValueChange = (e) => {
+    this.setState({ inputTwoValue: e.target.value });
+  }
 
   generateSql = () => {
-    let searchTerm = `'${this.state.inputValue}'`;
+    let searchTerm = `${this.state.inputValue}`;
     if (!this.isStringParam) {
       searchTerm = Number(searchTerm)
     }
@@ -59,29 +67,22 @@ class QueryRow extends React.Component {
     let operator = this.state.operator;
     if (this.state.operator === 'contains') {
       searchTerm = `'%${this.state.inputValue}%'`;
-      operator = 'LIKE'
+      operator = 'LIKE';
     } else if (this.state.operator === 'starts_with') {
       searchTerm = `'${this.state.inputValue}%'`
-      operator = 'LIKE'
+      operator = 'LIKE';
     } else if (this.state.operator === 'BETWEEN') {
-      searchTerm = `${Number(this.state.inputValue)} AND ${Number(this.state.inputTwoValue)}`
+      searchTerm = `${Number(this.state.inputValue)} AND ${Number(this.state.inputTwoValue)}`;
     }
 
-    // const predicate = `${this.state.predicate} ${operator} ${searchTerm}`
-
-    const predicate = {
+    const row = {
       id: this.props.id,
       predicate: this.state.predicate,
       operator,
       searchTerm
     }
 
-    // return `
-    //   SELECT * FROM session
-    //   WHERE ${this.state.predicate} ${operator} ${searchTerm}
-    // `
-
-    this.props.editRow(predicate)
+    this.props.editRow(row)
   }
 
   render() {
@@ -116,8 +117,8 @@ class QueryRow extends React.Component {
           <img src={downArrow} alt="down-arrow"></img>
         </div>
         <input type="text" value={this.state.inputValue} onChange={this.handleInputValueChange}></input>
-        {this.state.operator === 'between' ? <div className="is-and-div">and</div> : null}
-        {this.state.operator === 'between' ? <input type="text" value={this.state.inputValue} onChange={this.handleInputValueChange}></input> : null}
+        {this.state.operator === 'BETWEEN' ? <div className="is-and-div">and</div> : null}
+        {this.state.operator === 'BETWEEN' ? <input type="text" value={this.state.inputTwoValue} onChange={this.handleInputTwoValueChange}></input> : null}
       </div>
     );
   }
