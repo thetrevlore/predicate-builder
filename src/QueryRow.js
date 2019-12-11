@@ -73,6 +73,9 @@ class QueryRow extends React.Component {
       operator = 'LIKE';
     } else if (this.state.operator === 'BETWEEN') {
       searchTerm = `${Number(this.state.inputValue)} AND ${Number(this.state.inputTwoValue)}`;
+    } else if (this.state.operator === 'IN') {
+      let values = this.state.inputValue.split(',').map(value => `'${value.trim()}'`);
+      searchTerm = `(${values.join(', ')})`;
     }
 
     const row = {
@@ -103,7 +106,7 @@ class QueryRow extends React.Component {
           </select>
           <img src={downArrow} alt="down-arrow"></img>
         </div>
-        {this.state.operator === 'contains' || this.state.operator === 'starts-with' ? null : <div className="is-and-div">is</div>}
+        {this.state.operator === 'contains' || this.state.operator === 'starts_with' ? null : <div className="is-and-div">is</div>}
         <div className="custom-select">
           <select value={this.state.operator} onChange={this.selectSecondParam}>
             <option value="=">equal to</option>
@@ -112,7 +115,7 @@ class QueryRow extends React.Component {
             {this.isStringParam ? null : <option value="BETWEEN">between</option>}
             {this.isStringParam ? null : <option value=">">greater than</option>}
             {this.isStringParam ? null : <option value="<">less than</option>}
-            <option value="in-list">in list</option>
+            <option value="IN">in list</option>
           </select>
           <img src={downArrow} alt="down-arrow"></img>
         </div>
