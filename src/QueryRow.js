@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import downArrow from './down-arrow.svg';
 
-const STRING_PARAMS = [
+const STRING_ATTRIBUTES = [
   'user_email',
   'user_first_name',
   'user_last_name',
@@ -10,7 +10,7 @@ const STRING_PARAMS = [
   'path'
 ];
 
-const INT_PARAMS = [
+const INTEGER_ATTRIBUTES = [
   'screen_width', 
   'screen_height',
   'visits',
@@ -19,23 +19,32 @@ const INT_PARAMS = [
 
 class QueryRow extends React.Component {
   state = {
-    inputValue: '',
-    inputTwoValue: '',
-    predicate: 'visits',
+    attribute: 'visits',
     operator: '=',
+    inputValue: '',
+    betweenInputTwoValue: '',
   }
 
-  get isStringParam() {
-    return STRING_PARAMS.includes(this.state.predicate);
+  get isAttributeString() {
+    return STRING_ATTRIBUTES.includes(this.state.attribute);
+  }
+
+  get isAttributeInteger() {
+    return INTEGER_ATTRIBUTES.includes(this.state.attribute);
   }
 
   componentDidMount() {
-    this.generateSql();
+    this.editRow();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.inputValue !== this.state.inputValue || prevState.inputTwoValue !== this.state.inputTwoValue || prevState.predicate !== this.state.predicate || prevState.operator !== this.state.operator) {
-      this.generateSql();
+    if (
+      prevState.attribute !== this.state.attribute ||
+      prevState.operator !== this.state.operator ||
+      prevState.inputValue !== this.state.inputValue ||
+      prevState.betweenInputTwoValue !== this.state.betweenInputTwoValue
+    ) {
+      this.editRow();
     }
   }
 
@@ -43,57 +52,82 @@ class QueryRow extends React.Component {
     this.props.removeRow(this.props.id);
   }
 
-  selectFirstParam = (e) => {
-    this.setState({ predicate: e.target.value })
+  selectAttribute = (e) => {
+    this.setState({ attribute: e.target.value })
   }
 
-  selectSecondParam = (e) => {
+  selectOperator = (e) => {
     this.setState({ operator: e.target.value })
   }
 
   handleInputValueChange = (e) => {
     this.setState({ inputValue: e.target.value });
   }
-  handleInputTwoValueChange = (e) => {
-    this.setState({ inputTwoValue: e.target.value });
+
+  handleBetweenInputTwoValueChange = (e) => {
+    this.setState({ betweenInputTwoValue: e.target.value });
   }
 
-  generateSql = () => {
-    let searchTerm = `${this.state.inputValue}`;
-    if (!this.isStringParam) {
-      searchTerm = Number(searchTerm)
+  editRow = () => {
+    let userInput = `${this.state.inputValue}`;
+    if (!this.isAttributeString) {
+      userInput = Number(userInput);
     }
-
     let operator = this.state.operator;
+
     if (this.state.operator === 'contains') {
-      searchTerm = `'%${this.state.inputValue}%'`;
       operator = 'LIKE';
+      userInput = `'%${this.state.inputValue}%'`;
     } else if (this.state.operator === 'starts_with') {
-      searchTerm = `'${this.state.inputValue}%'`
       operator = 'LIKE';
+      userInput = `'${this.state.inputValue}%'`;
     } else if (this.state.operator === 'BETWEEN') {
-      searchTerm = `${Number(this.state.inputValue)} AND ${Number(this.state.inputTwoValue)}`;
+      userInput = `${this.state.inputValue} AND ${this.state.betweenInputTwoValue}`;
     } else if (this.state.operator === 'IN') {
       let values = this.state.inputValue.split(',').map(value => `'${value.trim()}'`);
-      searchTerm = `(${values.join(', ')})`;
+      userInput = `(${values.join(', ')})`;
     }
 
     const row = {
       id: this.props.id,
-      predicate: this.state.predicate,
+      attribute: this.state.attribute,
       operator,
-      searchTerm
+      userInput
     }
 
     this.props.editRow(row)
+  }
+
+  renderOperatorSelect = () => {
+    if (this.isAttributeString) {
+      return (
+        <select className="operator" value={this.state.operator} onChange={this.selectOperator}>
+          <option value="=">equal to</option>
+          <option value="contains">contains</option>
+          <option value="starts_with">starts with</option>
+          <option value="IN">in list</option>
+        </select>
+      );
+    } else if (this.isAttributeInteger) {
+      return (
+        <select className="operator" value={this.state.operator} onChange={this.selectOperator}>
+          <option value="=">equal to</option>
+          <option value="BETWEEN">between</option>
+          <option value=">">greater than</option>
+          <option value="<">less than</option>
+          <option value="IN">in list</option>
+        </select>
+      ); 
+    }
   }
 
   render() {
     return (
       <div className="query-row-container">
         <button disabled={this.props.disableRemoveRow} className="remove-btn" onClick={this.removeRow}>-</button>
-        <div className="custom-select">
-          <select value={this.state.predicate} onChange={this.selectFirstParam}>
+
+        <div className="custom-select attribute">
+          <select value={this.state.attribute} onChange={this.selectAttribute}>
             <option value="user_email">User Email</option>
             <option value="screen_width">Screen Width</option>
             <option value="screen_height">Screen Height</option>
@@ -106,22 +140,19 @@ class QueryRow extends React.Component {
           </select>
           <img src={downArrow} alt="down-arrow"></img>
         </div>
+
         {this.state.operator === 'contains' || this.state.operator === 'starts_with' ? null : <div className="is-and-div">is</div>}
+
         <div className="custom-select">
-          <select value={this.state.operator} onChange={this.selectSecondParam}>
-            <option value="=">equal to</option>
-            {this.isStringParam ? <option value="contains">contains</option> : null}
-            {this.isStringParam ? <option value="starts_with">starts with</option> : null}
-            {this.isStringParam ? null : <option value="BETWEEN">between</option>}
-            {this.isStringParam ? null : <option value=">">greater than</option>}
-            {this.isStringParam ? null : <option value="<">less than</option>}
-            <option value="IN">in list</option>
-          </select>
+          {this.renderOperatorSelect()}
           <img src={downArrow} alt="down-arrow"></img>
         </div>
+
         <input type="text" value={this.state.inputValue} onChange={this.handleInputValueChange}></input>
+
         {this.state.operator === 'BETWEEN' ? <div className="is-and-div">and</div> : null}
-        {this.state.operator === 'BETWEEN' ? <input type="text" value={this.state.inputTwoValue} onChange={this.handleInputTwoValueChange}></input> : null}
+
+        {this.state.operator === 'BETWEEN' ? <input type="text" value={this.state.betweenInputTwoValue} onChange={this.handleBetweenInputTwoValueChange}></input> : null}
       </div>
     );
   }

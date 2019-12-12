@@ -155,6 +155,10 @@ input {
   position: relative;
 }
 
+select.operator {
+  min-width: 120px;
+}
+
 img {
   position: absolute;
   height: 0.4em;
