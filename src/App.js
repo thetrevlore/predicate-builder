@@ -1,12 +1,12 @@
 // import React from 'react';
 // import './App.css';
-// import QueryRowList from './QueryRowList';
+// import PredicateBuilder from './PredicateBuilder';
 
 // function App() {
 //   return (
 //     <div className="App">
 //       <header>SEARCH FOR SESSIONS</header>
-//       <QueryRowList />
+//       <PredicateBuilder />
 //     </div>
 //   );
 // }

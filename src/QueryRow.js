@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './query-row.css';
 import downArrow from './down-arrow.svg';
 
 const STRING_ATTRIBUTES = [

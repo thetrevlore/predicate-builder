@@ -1,0 +1,64 @@
+.query-row-container {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  padding-left: 1px;
+}
+
+.remove-btn {
+  background: white;
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
+}
+
+select {
+  appearance: none;
+  margin-right: 5px;
+  height: 30px;
+  padding-left: 10px;
+  min-width: 205px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.is-and-div {
+  background-color: #c5d3dd;
+  color: black;
+  height: 30px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+input {
+  margin-right: 5px;
+  height: 30px;
+  border: 1px solid #b6b6b6;
+  border-radius: 3px;
+  font-size: inherit;
+}
+
+.custom-select {
+  position: relative;
+}
+
+select.operator {
+  min-width: 120px;
+}
+
+img {
+  position: absolute;
+  height: 0.4em;
+  right: 15px;
+  top: 50%;
+  margin-top: -2px;
+  pointer-events: none;
+}
