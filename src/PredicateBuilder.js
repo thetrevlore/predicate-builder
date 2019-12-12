@@ -29,18 +29,18 @@ function PredicateBuilder() {
     console.log(query)
   }
 
-  const editRow = ({ id, attribute, operator, userInput }) => {
-    let rows = [...queryRows];
-    for (let i = 0; i < rows.length; i++) {
-      let row = queryRows[i];
-      if (row.id === id) {
-        row.attribute = attribute;
-        row.operator = operator;
-        row.userInput = userInput;
-      }
-    }
-    setQueryRows(rows);
-  }
+  // const editRow = ({ id, attribute, operator, userInput }) => {
+  //   let rows = [...queryRows];
+  //   for (let i = 0; i < rows.length; i++) {
+  //     let row = queryRows[i];
+  //     if (row.id === id) {
+  //       row.attribute = attribute;
+  //       row.operator = operator;
+  //       row.userInput = userInput;
+  //     }
+  //   }
+  //   setQueryRows(rows);
+  // }
 
   return (
     <div className="Predicate-Builder">
@@ -48,7 +48,7 @@ function PredicateBuilder() {
 
       <main>
         <div className="query-row-list-container">
-          {queryRows.map(row => <QueryRow editRow={editRow} key={row.id} removeRow={removeRow} id={row.id} disableRemoveRow={queryRows.length <= 1} />)}
+          {queryRows.map(row => <QueryRow queryRows={queryRows} setQueryRows={setQueryRows} key={row.id} removeRow={removeRow} id={row.id} disableRemoveRow={queryRows.length <= 1} />)}
           <button className="add-row-btn" onClick={addRow}>AND</button>
         </div>
       </main>
