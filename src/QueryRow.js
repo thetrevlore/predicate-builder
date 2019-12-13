@@ -1,35 +1,35 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import './query-row.css';
-import downArrow from './down-arrow.svg';
+import React, { useEffect, useMemo, useState } from "react";
+import "./query-row.css";
+import downArrow from "./down-arrow.svg";
 
 const STRING_ATTRIBUTES = [
-  'user_email',
-  'user_first_name',
-  'user_last_name',
-  'domain',
-  'path'
+  "user_email",
+  "user_first_name",
+  "user_last_name",
+  "domain",
+  "path"
 ];
 
 const INTEGER_ATTRIBUTES = [
-  'screen_width', 
-  'screen_height',
-  'visits',
-  'page_response'
+  "screen_width",
+  "screen_height",
+  "visits",
+  "page_response"
 ];
 
-const isString = (attribute) => {
+const isString = attribute => {
   return STRING_ATTRIBUTES.includes(attribute);
-}
+};
 
-const isInteger = (attribute) => {
+const isInteger = attribute => {
   return INTEGER_ATTRIBUTES.includes(attribute);
-}
+};
 
-export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) {
-  const [attribute, setAttribute] = useState('visits');
-  const [operator, setOperator] = useState('=');
-  const [inputValue, setInputValue] = useState('');
-  const [betweenInputTwoValue, setBetweenInputTwoValue] = useState('');
+export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
+  const [attribute, setAttribute] = useState("visits");
+  const [operator, setOperator] = useState("=");
+  const [inputValue, setInputValue] = useState("");
+  const [betweenInputTwoValue, setBetweenInputTwoValue] = useState("");
   const isAttributeString = useMemo(() => isString(attribute), [attribute]);
   const isAttributeInteger = useMemo(() => isInteger(attribute), [attribute]);
 
@@ -38,41 +38,54 @@ export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) 
       let userInput = `${inputValue}`;
       if (isAttributeInteger) userInput = Number(userInput);
       let sqlOperator = operator;
-  
-      if (sqlOperator === 'contains') {
-        sqlOperator = 'LIKE';
+
+      if (sqlOperator === "contains") {
+        sqlOperator = "LIKE";
         userInput = `'%${inputValue}%'`;
-      } else if (sqlOperator === 'starts_with') {
-        sqlOperator = 'LIKE';
+      } else if (sqlOperator === "starts_with") {
+        sqlOperator = "LIKE";
         userInput = `'${inputValue}%'`;
-      } else if (sqlOperator === 'BETWEEN') {
+      } else if (sqlOperator === "BETWEEN") {
         userInput = `${inputValue} AND ${betweenInputTwoValue}`;
-      } else if (sqlOperator === 'IN') {
-        let values = inputValue.split(',').map(value => `'${value.trim()}'`);
-        userInput = `(${values.join(', ')})`;
+      } else if (sqlOperator === "IN") {
+        let values = inputValue.split(",").map(value => `'${value.trim()}'`);
+        userInput = `(${values.join(", ")})`;
       }
-  
+
       const row = {
         id,
         attribute,
         operator: sqlOperator,
         userInput
-      }
-  
+      };
+
       editRow(row);
-    }
+    };
 
     editQueryRow();
-  }, [attribute, operator, inputValue, betweenInputTwoValue, id, isAttributeInteger, editRow])
+  }, [
+    attribute,
+    operator,
+    inputValue,
+    betweenInputTwoValue,
+    id,
+    isAttributeInteger,
+    editRow
+  ]);
 
   const removeQueryRow = () => {
     removeRow(id);
-  }
+  };
 
   const renderOperatorSelect = () => {
     if (isAttributeString) {
       return (
-        <select className="operator" value={operator} onChange={e => setOperator(e.target.value)}>
+        <select
+          className="operator"
+          value={operator}
+          onChange={e => setOperator(e.target.value)}
+          onBlur={e => setOperator(e.target.value)}
+        >
           <option value="=">equal to</option>
           <option value="contains">contains</option>
           <option value="starts_with">starts with</option>
@@ -81,20 +94,31 @@ export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) 
       );
     } else if (isAttributeInteger) {
       return (
-        <select className="operator" value={operator} onChange={e => setOperator(e.target.value)}>
+        <select
+          className="operator"
+          value={operator}
+          onChange={e => setOperator(e.target.value)}
+          onBlur={e => setOperator(e.target.value)}
+        >
           <option value="=">equal to</option>
           <option value="BETWEEN">between</option>
           <option value=">">greater than</option>
           <option value="<">less than</option>
           <option value="IN">in list</option>
         </select>
-      ); 
+      );
     }
-  }
+  };
 
   return (
     <div className="query-row-container">
-      <button disabled={disableRemoveRow} className="remove-btn" onClick={removeQueryRow}>-</button>
+      <button
+        disabled={disableRemoveRow}
+        className="remove-btn"
+        onClick={removeQueryRow}
+      >
+        -
+      </button>
 
       <div className="custom-select attribute">
         <select value={attribute} onChange={e => setAttribute(e.target.value)}>
@@ -111,28 +135,34 @@ export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) 
         <img src={downArrow} alt="down-arrow"></img>
       </div>
 
-      {operator === 'contains' || operator === 'starts_with' ? null : <div className="is-and-div">is</div>}
+      {operator === "contains" || operator === "starts_with" ? null : (
+        <div className="is-and-div">is</div>
+      )}
 
       <div className="custom-select">
         {renderOperatorSelect()}
         <img src={downArrow} alt="down-arrow"></img>
       </div>
 
-      <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)}></input>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={e => setInputValue(e.target.value)}
+      ></input>
 
-      {operator === 'BETWEEN' ?
+      {operator === "BETWEEN" ? (
         <>
           <div className="is-and-div">and</div>
-          <input type="text" value={betweenInputTwoValue} onChange={e => setBetweenInputTwoValue(e.target.value)}></input>
+          <input
+            type="text"
+            value={betweenInputTwoValue}
+            onChange={e => setBetweenInputTwoValue(e.target.value)}
+          ></input>
         </>
-      : null}
+      ) : null}
     </div>
   );
 }
-
-
-
-
 
 // import React from 'react';
 // import './query-row.css';
@@ -147,7 +177,7 @@ export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) 
 // ];
 
 // const INTEGER_ATTRIBUTES = [
-//   'screen_width', 
+//   'screen_width',
 //   'screen_height',
 //   'visits',
 //   'page_response'
@@ -253,7 +283,7 @@ export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) 
 //           <option value="<">less than</option>
 //           <option value="IN">in list</option>
 //         </select>
-//       ); 
+//       );
 //     }
 //   }
 

@@ -1,35 +1,40 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import './Predicate-Builder.css'
-import QueryRow from './QueryRow';
+import React, { useCallback, useEffect, useState } from "react";
+import "./Predicate-Builder.css";
+import QueryRow from "./QueryRow";
 
 export default function PredicateBuilder() {
   const [queryRows, setQueryRows] = useState([]);
 
   const addRow = () => {
     const uniqId = new Date().getTime();
-    setQueryRows([...queryRows, { id: uniqId, attribute: '', operator: '', userInput: ''}]);
-  }
+    setQueryRows([
+      ...queryRows,
+      { id: uniqId, attribute: "", operator: "", userInput: "" }
+    ]);
+  };
 
   useEffect(addRow, []);
 
-  const removeRow = (rowIdToRemove) => {
-    const newRows = queryRows.filter(row => String(row.id) !== String(rowIdToRemove));
-    setQueryRows(newRows)
-  }
+  const removeRow = rowIdToRemove => {
+    const newRows = queryRows.filter(
+      row => String(row.id) !== String(rowIdToRemove)
+    );
+    setQueryRows(newRows);
+  };
 
   const submitQuery = () => {
-    let query = 'SELECT * FROM session\nWHERE\n';
+    let query = "SELECT * FROM session\nWHERE\n";
     for (let i = 0; i < queryRows.length; i++) {
       let row = queryRows[i];
-      query += `\t${row.attribute} ${row.operator} ${row.userInput}`
-      query += i !== queryRows.length - 1 ? '\nAND\n' : '';
+      query += `\t${row.attribute} ${row.operator} ${row.userInput}`;
+      query += i !== queryRows.length - 1 ? "\nAND\n" : "";
     }
-    console.log(query)
-  }
+    console.log(query);
+  };
 
   const editRow = useCallback(
     ({ id, attribute, operator, userInput }) => {
-      setQueryRows((qRows) => {
+      setQueryRows(qRows => {
         let rows = [...qRows];
         for (let i = 0; i < rows.length; i++) {
           let row = rows[i];
@@ -40,7 +45,7 @@ export default function PredicateBuilder() {
           }
         }
         return rows;
-      })
+      });
     },
     [setQueryRows]
   );
@@ -51,21 +56,29 @@ export default function PredicateBuilder() {
 
       <main>
         <div className="query-row-list-container">
-          {queryRows.map(row => <QueryRow key={row.id} editRow={editRow} removeRow={removeRow} id={row.id} disableRemoveRow={queryRows.length <= 1} />)}
-          <button className="add-row-btn" onClick={addRow}>AND</button>
+          {queryRows.map(row => (
+            <QueryRow
+              key={row.id}
+              editRow={editRow}
+              removeRow={removeRow}
+              id={row.id}
+              disableRemoveRow={queryRows.length <= 1}
+            />
+          ))}
+          <button className="add-row-btn" onClick={addRow}>
+            AND
+          </button>
         </div>
       </main>
 
       <footer>
-        <button className="search-btn" onClick={submitQuery}>Search</button>
+        <button className="search-btn" onClick={submitQuery}>
+          Search
+        </button>
       </footer>
     </div>
   );
 }
-
-
-
-
 
 // import React from 'react';
 // import './Predicate-Builder.css'
