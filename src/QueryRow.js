@@ -121,7 +121,11 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
       </button>
 
       <div className="custom-select attribute">
-        <select value={attribute} onChange={e => setAttribute(e.target.value)}>
+        <select
+          value={attribute}
+          onChange={e => setAttribute(e.target.value)}
+          onBlur={e => setAttribute(e.target.value)}
+        >
           <option value="user_email">User Email</option>
           <option value="screen_width">Screen Width</option>
           <option value="screen_height">Screen Height</option>
