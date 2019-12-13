@@ -109,6 +109,21 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
     }
   };
 
+  const onlyDigitsRegExp = /^\d+$/; // only digits. no negative numbers.
+  const handleInputValueChange = e => {
+    if (isAttributeInteger && onlyDigitsRegExp.test(Number(e.target.value))) {
+      setInputValue(e.target.value.trim());
+    } else if (isAttributeString) {
+      setInputValue(e.target.value);
+    }
+  };
+
+  const handleBetweenInputTwoValueChange = e => {
+    if (onlyDigitsRegExp.test(Number(e.target.value))) {
+      setBetweenInputTwoValue(e.target.value.trim());
+    }
+  };
+
   return (
     <div className="query-row-container">
       <button
@@ -150,7 +165,7 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
       <input
         type="text"
         value={inputValue}
-        onChange={e => setInputValue(e.target.value)}
+        onChange={handleInputValueChange}
       ></input>
 
       {operator === "BETWEEN" ? (
@@ -159,7 +174,7 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
           <input
             type="text"
             value={betweenInputTwoValue}
-            onChange={e => setBetweenInputTwoValue(e.target.value)}
+            onChange={handleBetweenInputTwoValueChange}
           ></input>
         </>
       ) : null}
