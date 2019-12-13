@@ -25,7 +25,7 @@ const isInteger = (attribute) => {
   return INTEGER_ATTRIBUTES.includes(attribute);
 }
 
-function QueryRow ({ setQueryRows, queryRows, removeRow, id, disableRemoveRow }) {
+export default function QueryRow ({ editRow, removeRow, id, disableRemoveRow }) {
   const [attribute, setAttribute] = useState('visits');
   const [operator, setOperator] = useState('=');
   const [inputValue, setInputValue] = useState('');
@@ -36,9 +36,7 @@ function QueryRow ({ setQueryRows, queryRows, removeRow, id, disableRemoveRow })
   useEffect(() => {
     const editQueryRow = () => {
       let userInput = `${inputValue}`;
-      if (isAttributeInteger) {
-        userInput = Number(userInput);
-      }
+      if (isAttributeInteger) userInput = Number(userInput);
       let sqlOperator = operator;
   
       if (sqlOperator === 'contains') {
@@ -60,47 +58,16 @@ function QueryRow ({ setQueryRows, queryRows, removeRow, id, disableRemoveRow })
         operator: sqlOperator,
         userInput
       }
-
-      const editRow = ({ id, attribute, operator, userInput }) => {
-        let rows = [...queryRows];
-        for (let i = 0; i < rows.length; i++) {
-          let queryRow = queryRows[i];
-          if (queryRow.id === id) {
-            queryRow.attribute = attribute;
-            queryRow.operator = operator;
-            queryRow.userInput = userInput;
-          }
-        }
-        setQueryRows(rows);
-      }
   
       editRow(row);
     }
 
     editQueryRow();
-  }, [attribute, operator, inputValue, betweenInputTwoValue, id, isAttributeInteger])
+  }, [attribute, operator, inputValue, betweenInputTwoValue, id, isAttributeInteger, editRow])
 
   const removeQueryRow = () => {
     removeRow(id);
   }
-
-  // const selectAttribute = (e) => {
-  //   setAttribute(e.target.value);
-  // }
-
-  // const selectOperator = (e) => {
-  //   setOperator(e.target.value);
-  // }
-
-  // const handleInputValueChange = (e) => {
-  //   this.setState({ inputValue: e.target.value });
-  // }
-
-  // const handleBetweenInputTwoValueChange = (e) => {
-  //   this.setState({ betweenInputTwoValue: e.target.value });
-  // }
-
-
 
   const renderOperatorSelect = () => {
     if (isAttributeString) {
@@ -153,14 +120,19 @@ function QueryRow ({ setQueryRows, queryRows, removeRow, id, disableRemoveRow })
 
       <input type="text" value={inputValue} onChange={e => setInputValue(e.target.value)}></input>
 
-      {operator === 'BETWEEN' ? <div className="is-and-div">and</div> : null}
-
-      {operator === 'BETWEEN' ? <input type="text" value={betweenInputTwoValue} onChange={e => setBetweenInputTwoValue(e.target.value)}></input> : null}
+      {operator === 'BETWEEN' ?
+        <>
+          <div className="is-and-div">and</div>
+          <input type="text" value={betweenInputTwoValue} onChange={e => setBetweenInputTwoValue(e.target.value)}></input>
+        </>
+      : null}
     </div>
   );
 }
 
-export default QueryRow;
+
+
+
 
 // import React from 'react';
 // import './query-row.css';

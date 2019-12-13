@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './Predicate-Builder.css'
 import QueryRow from './QueryRow';
 
-function PredicateBuilder() {
-  const [queryRows, setQueryRows] = useState([])
-
-  useEffect(() => {
-    addRow();
-  }, [])
+export default function PredicateBuilder() {
+  const [queryRows, setQueryRows] = useState([]);
 
   const addRow = () => {
     const uniqId = new Date().getTime();
-    setQueryRows([...queryRows, { id: uniqId, attribute: '', operator: '', userInput: ''}])
+    setQueryRows([...queryRows, { id: uniqId, attribute: '', operator: '', userInput: ''}]);
   }
+
+  useEffect(addRow, []);
 
   const removeRow = (rowIdToRemove) => {
     const newRows = queryRows.filter(row => String(row.id) !== String(rowIdToRemove));
@@ -29,18 +27,23 @@ function PredicateBuilder() {
     console.log(query)
   }
 
-  // const editRow = ({ id, attribute, operator, userInput }) => {
-  //   let rows = [...queryRows];
-  //   for (let i = 0; i < rows.length; i++) {
-  //     let row = queryRows[i];
-  //     if (row.id === id) {
-  //       row.attribute = attribute;
-  //       row.operator = operator;
-  //       row.userInput = userInput;
-  //     }
-  //   }
-  //   setQueryRows(rows);
-  // }
+  const editRow = useCallback(
+    ({ id, attribute, operator, userInput }) => {
+      setQueryRows((qRows) => {
+        let rows = [...qRows];
+        for (let i = 0; i < rows.length; i++) {
+          let row = rows[i];
+          if (row.id === id) {
+            row.attribute = attribute;
+            row.operator = operator;
+            row.userInput = userInput;
+          }
+        }
+        return rows;
+      })
+    },
+    [setQueryRows]
+  );
 
   return (
     <div className="Predicate-Builder">
@@ -48,7 +51,7 @@ function PredicateBuilder() {
 
       <main>
         <div className="query-row-list-container">
-          {queryRows.map(row => <QueryRow queryRows={queryRows} setQueryRows={setQueryRows} key={row.id} removeRow={removeRow} id={row.id} disableRemoveRow={queryRows.length <= 1} />)}
+          {queryRows.map(row => <QueryRow key={row.id} editRow={editRow} removeRow={removeRow} id={row.id} disableRemoveRow={queryRows.length <= 1} />)}
           <button className="add-row-btn" onClick={addRow}>AND</button>
         </div>
       </main>
@@ -60,7 +63,8 @@ function PredicateBuilder() {
   );
 }
 
-export default PredicateBuilder;
+
+
 
 
 // import React from 'react';
