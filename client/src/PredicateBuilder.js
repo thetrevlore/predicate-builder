@@ -22,23 +22,16 @@ export default function PredicateBuilder() {
     setQueryRows(newRows);
   };
 
-  const submitQuery = () => {
-    let query = "SELECT * FROM session\nWHERE\n";
-    for (let i = 0; i < queryRows.length; i++) {
-      let row = queryRows[i];
-      query += `  ${row.attribute} ${row.operator} ${row.userInput}`;
-      query += i !== queryRows.length - 1 ? "\nAND\n" : "";
-    }
-    console.log(query);
-    fetch("/api/query", {
+  const submitQuery = async () => {
+    const { query } = await fetch("/api/query", {
       method: "post",
-      body: JSON.stringify(query),
+      body: JSON.stringify(queryRows),
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => {
-      console.log("res.status ->", res.status);
-    });
+    }).then(res => res.json());
+    console.log("--query--");
+    console.log(query);
   };
 
   const editRow = useCallback(

@@ -36,7 +36,6 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
   useEffect(() => {
     const editQueryRow = () => {
       let userInput = `${inputValue}`;
-      if (isAttributeInteger) userInput = Number(userInput);
       let sqlOperator = operator;
 
       if (sqlOperator === "contains") {
