@@ -1,6 +1,7 @@
 # Predicate Builder by Trevor Storey
+![Screen Shot 2019-12-13 at 10 24 03 PM](https://user-images.githubusercontent.com/23128497/70843960-85f86e80-1df7-11ea-82b8-a6bb3f8b0cb0.png)
 
-This project uses
+#### This project uses
 * React
 * Express
 * Node
