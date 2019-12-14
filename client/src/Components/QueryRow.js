@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import "./query-row.css";
+import "../Styles/query-row.css";
 import Dropdown from "./Dropdown";
 import {
   STRING_ATTRIBUTES,
@@ -7,7 +7,7 @@ import {
   STRING_OPERATORS,
   INTEGER_OPERATORS,
   ATTRIBUTE_LIST
-} from "./CONSTANTS";
+} from "../CONSTANTS";
 
 export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
   const [attribute, setAttribute] = useState("");

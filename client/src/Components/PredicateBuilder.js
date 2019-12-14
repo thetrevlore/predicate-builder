@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./Predicate-Builder.css";
+import "../Styles/Predicate-Builder.css";
 import QueryRow from "./QueryRow";
 
 export default function PredicateBuilder() {

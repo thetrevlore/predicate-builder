@@ -1,8 +1,8 @@
 // Dropdown component modifed from https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components/blob/master/src/components/Dropdown.js
 
 import React, { Component } from "react";
-import "./dropdown.css";
-import downArrow from "./down-arrow.svg";
+import "../Styles/dropdown.css";
+import downArrow from "../down-arrow.svg";
 
 class Dropdown extends Component {
   constructor(props) {
