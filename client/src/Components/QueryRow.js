@@ -124,7 +124,7 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
         title="Attribute"
         list={ATTRIBUTE_LIST}
         resetThenSet={selectAttribute}
-        width="215px"
+        width="238px"
       />
 
       {operator === "contains" ||

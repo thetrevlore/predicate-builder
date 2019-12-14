@@ -4,6 +4,7 @@ import QueryRow from "./QueryRow";
 
 export default function PredicateBuilder() {
   const [queryRows, setQueryRows] = useState([]);
+  const [submittedQuery, setSubmittedQuery] = useState("");
   useEffect(addRow, []);
 
   function addRow() {
@@ -31,6 +32,7 @@ export default function PredicateBuilder() {
     }).then(res => res.json());
     console.log("--query--");
     console.log(query);
+    setSubmittedQuery(query);
   }
 
   const editRow = useCallback(
@@ -70,6 +72,7 @@ export default function PredicateBuilder() {
             AND
           </button>
         </div>
+        <pre>{submittedQuery}</pre>
       </main>
 
       <footer>

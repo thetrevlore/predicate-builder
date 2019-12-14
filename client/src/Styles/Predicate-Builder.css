@@ -2,7 +2,8 @@
   background-color: rgb(244, 244, 244);
   color: rgb(121, 121, 121);
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   padding: 10px;
   padding-top: 0;
   display: grid;
@@ -26,6 +27,12 @@ header {
 main {
   grid-area: "main";
   border-top: 1px solid rgb(143, 143, 143);
+}
+
+pre {
+  font-size: 1.2em;
+  font-family: sans-serif;
+  color: #000000;
 }
 
 footer {
