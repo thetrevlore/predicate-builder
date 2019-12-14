@@ -25,5 +25,8 @@ npm i && npm run start
 
 ## Caveats
 If I was to put more time into this, one thing I would do is make the select dropdowns more accessible(a11y). Either by implementing those features myself or by using a prebuilt React select like https://www.npmjs.com/package/react-select or https://www.npmjs.com/package/rc-select. I chose not to use those because they are 1.41mb and 279kb respectively and it seemed like overkill for a project this small and when I don't really know how important a11y is to the project.
-
 I ended up using a self-modified version of https://github.com/dbilgili/Custom-ReactJS-Dropdown-Components for the selects. Which I also mention at the top of Dropdown.js and dropdown.css.
+
+Another thing I would implement would be error handling and some indicators to the user when they try to do something like type alphabetic characters into a field that only accepts integers. Right now I don't allow alphabetic characters in the integer field, but I don't indicate to the user that is the case. There's also no validation happening server side on whether the query has superfluous rows or anything else.
+
+I would also like to implement some unit tests.
