@@ -1,6 +1,6 @@
 .Predicate-Builder {
-  background-color: rgb(233, 233, 233);
-  color: rgb(143, 143, 143);
+  background-color: rgb(244, 244, 244);
+  color: rgb(121, 121, 121);
   width: 100vw;
   height: 100vh;
   padding: 10px;
@@ -8,15 +8,16 @@
   display: grid;
   grid-template-rows: 50px 1fr 50px;
   grid-template-columns: 1fr;
-  grid-template-areas: 
-   "header"
-   "main"
-   "footer";
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
 }
 
 header {
   grid-area: "header";
   font-size: 1.5em;
+  font-weight: 500;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -35,10 +36,11 @@ footer {
 }
 
 .search-btn {
-  background-color: #3087f8;
+  background-color: #2a92e7;
   color: #fff;
-  height: 30px;
+  height: 32px;
   width: 200px;
+  font-weight: 500;
 }
 
 .query-row-list-container {
@@ -48,8 +50,9 @@ footer {
 }
 
 .add-row-btn {
-  background-color: #3087f8;
+  background-color: #2a92e7;
   color: #fff;
-  height: 30px;
-  width: 200px;
+  height: 40px;
+  width: 120px;
+  font-weight: 500;
 }

@@ -67,14 +67,14 @@ export default function PredicateBuilder() {
               disableRemoveRow={queryRows.length <= 1}
             />
           ))}
-          <button className="add-row-btn" onClick={addRow}>
+          <button className="add-row-btn blue" onClick={addRow}>
             AND
           </button>
         </div>
       </main>
 
       <footer>
-        <button className="search-btn" onClick={submitQuery}>
+        <button className="search-btn blue" onClick={submitQuery}>
           Search
         </button>
       </footer>

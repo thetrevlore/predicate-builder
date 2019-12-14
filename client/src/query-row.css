@@ -13,6 +13,17 @@
   height: 30px;
   width: 30px;
   margin-right: 5px;
+  border: 1px solid rgba(200, 200, 200, 1);
+}
+
+.remove-btn:disabled {
+  background: rgb(244, 244, 244);
+  border: 1px solid rgba(210, 210, 210, 0.5);
+  color: rgba(140, 140, 140, 0.5);
+}
+
+.remove-btn:active {
+  transform: scale(0.9);
 }
 
 select {
@@ -26,7 +37,7 @@ select {
 }
 
 .is-and-div {
-  background-color: #c5d3dd;
+  background-color: #dbe7f0;
   color: black;
   height: 30px;
   width: 40px;
@@ -40,7 +51,7 @@ select {
 
 input {
   margin-right: 5px;
-  height: 30px;
+  height: 32px;
   border: 1px solid #b6b6b6;
   border-radius: 3px;
   font-size: inherit;
