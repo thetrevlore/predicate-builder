@@ -1,8 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Predicate Builder by Trevor Storey
 
-
-# To run the app
+## To run the app
 
 ### Clone this repo onto your machine with this command in your terminal:
 ```
@@ -20,4 +20,4 @@ That will run the front-end at [http://localhost:3000](http://localhost:3000)
 npm i && npm run start
 ```
 
-### Then navigate to [http://localhost:3000](http://localhost:3000) in your browser
+### To try out the app, navigate to [http://localhost:3000](http://localhost:3000) in your browser
