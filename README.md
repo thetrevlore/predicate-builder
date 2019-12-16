@@ -9,17 +9,21 @@
 
 ## To run the app
 
-### Clone this repo onto your machine with this command in your terminal:
+### Clone this repo onto your machine with this command in your terminal(if you use SSH):
 ```
 git clone git@github.com:thetrevlore/predicate-builder.git
 ```
+if you use https rather than ssh, run this command instead:
+```
+git clone https://github.com/thetrevlore/predicate-builder.git
+```
 
-### To run the front-end dev server at [http://localhost:3000](http://localhost:3000) - in your terminal, navigate to the client/ directory and run:
+### To run the front-end dev server at [http://localhost:3000](http://localhost:3000) - in your terminal, navigate to the client/ directory in the project and run:
 ```
 yarn && yarn start
 ```
 
-### To run the back-end dev server at [http://localhost:5000](http://localhost:5000) - in a different terminal window, navigate to the server/ directory and run 
+### To run the back-end dev server at [http://localhost:5000](http://localhost:5000) - in a different terminal window, navigate to the server/ directory in the project and run 
 ```
 npm i && npm run start
 ```
