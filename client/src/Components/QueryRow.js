@@ -26,7 +26,7 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
   const operatorDropdown = useRef(null);
 
   useEffect(() => {
-    const editQueryRow = () => {
+    function editQueryRow() {
       let userInput = `${inputValue}`;
       let sqlOperator = operator;
 
@@ -51,7 +51,7 @@ export default function QueryRow({ editRow, removeRow, id, disableRemoveRow }) {
       };
 
       editRow(row);
-    };
+    }
 
     editQueryRow();
   }, [
